@@ -1,0 +1,941 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Portfolio | EditingHub</title>
+  <meta name="description" content="Explore EditingHub's automotive edits, smooth speed ramps, cinematic visuals, motion graphics and video shooting projects.">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ===== PORTFOLIO PAGE ===== */
+    :root {
+      --eh-red: #ff3434;
+      --eh-black: #080808;
+      --eh-card: #111111;
+      --eh-border: #292929;
+      --eh-muted: #a1a1a1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--eh-black);
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .eh-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 22px;
+      padding: 19px 6%;
+      background: rgba(5, 5, 5, .96);
+      border-bottom: 1px solid var(--eh-border);
+      backdrop-filter: blur(12px);
+    }
+
+    .eh-logo {
+      color: #fff;
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .eh-logo span {
+      color: var(--eh-red);
+    }
+
+    .eh-nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 21px;
+    }
+
+    .eh-nav-links a {
+      color: #ccc;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: color .25s;
+    }
+
+    .eh-nav-links a:hover,
+    .eh-nav-links a.active {
+      color: var(--eh-red);
+    }
+
+    .eh-wrap {
+      width: min(1160px, 88%);
+      margin: 0 auto;
+    }
+
+    .eh-label {
+      display: inline-block;
+      color: var(--eh-red);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .eh-red {
+      color: var(--eh-red);
+    }
+
+    .eh-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 100px 0 85px;
+      border-bottom: 1px solid var(--eh-border);
+      background:
+        radial-gradient(ellipse at 85% 35%,
+          rgba(255, 52, 52, .13), transparent 40%),
+        linear-gradient(135deg, #080808, #101010 60%, #080808);
+    }
+
+    .eh-hero::after {
+      content: "EH";
+      position: absolute;
+      right: -15px;
+      bottom: -100px;
+      color: rgba(255, 255, 255, .025);
+      font-size: clamp(200px, 35vw, 470px);
+      font-weight: 900;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .eh-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 850px;
+    }
+
+    .eh-hero h1 {
+      margin: 24px 0;
+      font-size: clamp(48px, 9vw, 105px);
+      line-height: .92;
+      letter-spacing: -5px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .eh-hero h1 span {
+      display: block;
+      color: var(--eh-red);
+    }
+
+    .eh-hero-description {
+      max-width: 610px;
+      color: #aaa;
+      font-size: 16px;
+      line-height: 1.9;
+    }
+
+    .eh-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      margin-top: 30px;
+    }
+
+    .eh-button {
+      display: inline-block;
+      padding: 15px 23px;
+      border: 1px solid var(--eh-red);
+      background: var(--eh-red);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: .25s;
+    }
+
+    .eh-button:hover {
+      background: #d91e1e;
+      border-color: #d91e1e;
+      transform: translateY(-2px);
+    }
+
+    .eh-button-outline {
+      background: transparent;
+      border-color: #444;
+    }
+
+    .eh-button-outline:hover {
+      background: #171717;
+      border-color: var(--eh-red);
+    }
+
+    .eh-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--eh-border);
+    }
+
+    .eh-stat {
+      padding: 29px 15px;
+      text-align: center;
+      border-right: 1px solid var(--eh-border);
+    }
+
+    .eh-stat:last-child {
+      border-right: none;
+    }
+
+    .eh-stat strong {
+      display: block;
+      font-size: 23px;
+      font-weight: 900;
+    }
+
+    .eh-stat span {
+      display: block;
+      margin-top: 8px;
+      color: var(--eh-muted);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .eh-section {
+      padding: 85px 0;
+      border-bottom: 1px solid var(--eh-border);
+    }
+
+    .eh-section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 25px;
+      margin-bottom: 15px;
+    }
+
+    .eh-section-heading h2 {
+      margin: 13px 0 0;
+      font-size: clamp(34px, 5vw, 59px);
+      line-height: 1;
+      letter-spacing: -2px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .eh-section-intro {
+      max-width: 650px;
+      margin: 18px 0 35px;
+      color: var(--eh-muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    /* Project categories */
+    .eh-category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 17px;
+      margin-top: 35px;
+    }
+
+    .eh-category {
+      min-height: 185px;
+      padding: 25px;
+      background: linear-gradient(145deg, #151515, #0c0c0c);
+      border: 1px solid var(--eh-border);
+      transition: .3s;
+    }
+
+    .eh-category:hover {
+      border-color: var(--eh-red);
+      transform: translateY(-4px);
+    }
+
+    .eh-category-number {
+      color: var(--eh-red);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .eh-category h3 {
+      margin: 28px 0 10px;
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+
+    .eh-category p {
+      margin: 0;
+      color: var(--eh-muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    /* Portrait video projects */
+    .eh-project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 30px;
+      max-width: 900px;
+      margin: 35px auto 0;
+    }
+
+    .eh-project-card {
+      min-width: 0;
+      overflow: hidden;
+      background: var(--eh-card);
+      border: 1px solid var(--eh-border);
+      transition: border-color .3s, transform .3s;
+    }
+
+    .eh-project-card:hover {
+      border-color: var(--eh-red);
+      transform: translateY(-4px);
+    }
+
+    .eh-video-frame {
+      position: relative;
+      overflow: hidden;
+      background: #050505;
+    }
+
+    .eh-video-frame video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      object-fit: cover;
+      background: #050505;
+    }
+
+    .eh-project-info {
+      padding: 22px;
+    }
+
+    .eh-project-type {
+      color: var(--eh-red);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .eh-project-info h3 {
+      margin: 11px 0;
+      font-size: 21px;
+      text-transform: uppercase;
+    }
+
+    .eh-project-info p {
+      color: var(--eh-muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .eh-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 17px;
+    }
+
+    .eh-tags span {
+      padding: 7px 9px;
+      background: #1c1c1c;
+      color: #ccc;
+      font-size: 10px;
+      border: 1px solid #303030;
+    }
+
+    /* Editing workflow */
+    .eh-process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 15px;
+      margin-top: 38px;
+    }
+
+    .eh-process-card {
+      padding: 22px;
+      background: #101010;
+      border-top: 2px solid var(--eh-red);
+    }
+
+    .eh-process-card .number {
+      color: var(--eh-red);
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+    .eh-process-card h3 {
+      margin: 18px 0 10px;
+      font-size: 16px;
+    }
+
+    .eh-process-card p {
+      color: var(--eh-muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    /* Services */
+    .eh-service-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+      margin-top: 35px;
+    }
+
+    .eh-service {
+      padding: 24px;
+      border: 1px solid var(--eh-border);
+      background: #101010;
+    }
+
+    .eh-service h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .eh-service p {
+      margin: 0;
+      color: var(--eh-muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    /* Contact call to action */
+    .eh-cta {
+      padding: 75px 25px;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at center,
+          rgba(255, 52, 52, .13), transparent 65%),
+        #0c0c0c;
+    }
+
+    .eh-cta h2 {
+      margin: 17px auto;
+      max-width: 800px;
+      font-size: clamp(35px, 6vw, 68px);
+      line-height: 1;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+    }
+
+    .eh-cta p {
+      max-width: 570px;
+      margin: 18px auto 28px;
+      color: var(--eh-muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .eh-footer {
+      padding: 25px 6%;
+      background: #050505;
+      border-top: 1px solid var(--eh-border);
+      color: #888;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .eh-footer span {
+      color: var(--eh-red);
+    }
+
+    @media (max-width: 760px) {
+      .eh-nav {
+        position: relative;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .eh-nav-links {
+        gap: 14px;
+      }
+
+      .eh-hero {
+        padding: 75px 0;
+      }
+
+      .eh-hero h1 {
+        letter-spacing: -2px;
+      }
+
+      .eh-category-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .eh-process-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .eh-section {
+        padding: 60px 0;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .eh-wrap {
+        width: 90%;
+      }
+
+      .eh-nav-links {
+        gap: 12px;
+      }
+
+      .eh-nav-links a {
+        font-size: 11px;
+      }
+
+      .eh-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .eh-stat {
+        border-right: none;
+        border-bottom: 1px solid var(--eh-border);
+      }
+
+      .eh-stat:last-child {
+        border-bottom: none;
+      }
+
+      .eh-project-grid {
+        gap: 12px;
+      }
+
+      .eh-project-info {
+        padding: 12px;
+      }
+
+      .eh-project-info h3 {
+        font-size: 15px;
+      }
+
+      .eh-project-info p {
+        font-size: 11px;
+      }
+
+      .eh-tags {
+        gap: 5px;
+      }
+
+      .eh-tags span {
+        font-size: 9px;
+        padding: 5px;
+      }
+
+      .eh-process-grid,
+      .eh-service-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .eh-section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="eh-nav">
+
+    <a href="index.html" class="eh-logo">
+      EDITING<span>HUB.</span>
+    </a>
+
+    <div class="eh-nav-links">
+      <a href="index.html">Home</a>
+      <a href="portfolio.html" class="active">Portfolio</a>
+      <a href="motion-graphics.html">Motion Graphics</a>
+      <a href="shooting.html">Shooting</a>
+      <a href="about.html">About Me</a>
+      <a href="contact.html">Contact</a>
+
+
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="eh-hero">
+    <div class="eh-wrap eh-hero-content">
+      <span class="eh-label">EDITINGHUB / SELECTED WORK</span>
+
+      <h1>
+        CREATIVITY
+        <span>IN MOTION.</span>
+      </h1>
+
+      <p class="eh-hero-description">
+        Welcome to my creative portfolio. I create cinematic automotive
+        edits, smooth speed ramps, engaging transitions and visual
+        experiences designed to make every frame stand out.
+      </p>
+
+      <div class="eh-actions">
+        <a href="#projects" class="eh-button">EXPLORE MY WORK ↘</a>
+        <a href="contact.html" class="eh-button eh-button-outline">
+          WORK WITH ME ↗
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- QUICK INTRO STATS -->
+  <section class="eh-wrap">
+    <div class="eh-stats">
+      <div class="eh-stat">
+        <strong>01</strong>
+        <span>Creative Editing</span>
+      </div>
+      <div class="eh-stat">
+        <strong>02</strong>
+        <span>Visual Storytelling</span>
+      </div>
+      <div class="eh-stat">
+        <strong>03</strong>
+        <span>Motion & Shooting</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="eh-section">
+    <div class="eh-wrap">
+      <span class="eh-label">WHAT I CREATE</span>
+
+      <div class="eh-section-heading">
+        <h2>My Creative <span class="eh-red">World.</span></h2>
+      </div>
+
+      <p class="eh-section-intro">
+        Every project has its own style and purpose. From fast-paced
+        automotive reels to carefully designed animations, I focus on
+        timing, visual flow and strong presentation.
+      </p>
+
+      <div class="eh-category-grid">
+        <article class="eh-category">
+          <span class="eh-category-number">01 / EDITING</span>
+          <h3>Automotive Edits</h3>
+          <p>
+            Car reels with smooth speed ramps, dynamic transitions,
+            cinematic pacing and detailed visual finishing.
+          </p>
+        </article>
+
+        <article class="eh-category">
+          <span class="eh-category-number">02 / ANIMATION</span>
+          <h3>Motion Graphics</h3>
+          <p>
+            Animated typography, title sequences, graphic elements
+            and creative After Effects compositions.
+          </p>
+        </article>
+
+        <article class="eh-category">
+          <span class="eh-category-number">03 / PRODUCTION</span>
+          <h3>Video Shooting</h3>
+          <p>
+            Camera work, product visuals, cinematic movement
+            and footage created for social media content.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECT PORTFOLIO -->
+  <section class="eh-section" id="projects">
+    <div class="eh-wrap">
+      <span class="eh-label">01 / AUTOMOTIVE SHOWREEL</span>
+
+      <div class="eh-section-heading">
+        <h2>Speed Ramp <span class="eh-red">Edits.</span></h2>
+      </div>
+
+      <p class="eh-section-intro">
+        Smooth changes in speed, rhythm and movement give automotive
+        footage its energy. Watch my selected portrait-format edits below.
+      </p>
+
+      <div class="eh-project-grid">
+
+        <!-- PROJECT 01: LEFT -->
+        <article class="eh-project-card">
+          <div class="eh-video-frame">
+            <video autoplay muted loop playsinline preload="metadata"
+                   aria-label="Automotive speed ramp edit one">
+              <source src="videos/speedramp-01.mp4" type="video/mp4">
+              Your browser does not support HTML video.
+            </video>
+          </div>
+
+          <div class="eh-project-info">
+            <span class="eh-project-type">PROJECT 01 / AUTOMOTIVE</span>
+            <h3>Speed Ramp Edit</h3>
+
+            <p>
+              A fast-paced car edit focused on movement, speed changes,
+              beat synchronization and smooth transitions.
+            </p>
+
+            <div class="eh-tags">
+              <span>After Effects</span>
+              <span>Time Remapping</span>
+              <span>Motion Blur</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- PROJECT 02: RIGHT -->
+        <article class="eh-project-card">
+          <div class="eh-video-frame">
+            <video autoplay muted loop playsinline preload="metadata"
+                   aria-label="Cinematic car edit two">
+              <source src="videos/speedramp-02.mp4" type="video/mp4">
+              Your browser does not support HTML video.
+            </video>
+          </div>
+
+          <div class="eh-project-info">
+            <span class="eh-project-type">PROJECT 02 / CINEMATIC</span>
+            <h3>Cinematic Car Edit</h3>
+
+            <p>
+              Automotive visuals presented through carefully timed cuts,
+              smooth transitions, camera movement and color styling.
+            </p>
+
+            <div class="eh-tags">
+              <span>Car Cinematography</span>
+              <span>Transitions</span>
+              <span>Color Grading</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- PROJECT 03: LEFT -->
+        <article class="eh-project-card">
+          <div class="eh-video-frame">
+            <video autoplay muted loop playsinline preload="metadata"
+                   aria-label="Automotive detail edit three">
+              <source src="videos/speedramp-03.mp4" type="video/mp4">
+              Your browser does not support HTML video.
+            </video>
+          </div>
+
+          <div class="eh-project-info">
+            <span class="eh-project-type">PROJECT 03 / DETAIL SHOTS</span>
+            <h3>Automotive Details</h3>
+
+            <p>
+              Close-up visuals highlighting car design, exterior details,
+              reflections and carefully composed cinematic shots.
+            </p>
+
+            <div class="eh-tags">
+              <span>Detail Shots</span>
+              <span>Sound Design</span>
+              <span>Visual Rhythm</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- PROJECT 04: RIGHT -->
+        <article class="eh-project-card">
+          <div class="eh-video-frame">
+            <video autoplay muted loop playsinline preload="metadata"
+                   aria-label="Creative automotive reel four">
+              <source src="videos/speedramp-04.mp4" type="video/mp4">
+              Your browser does not support HTML video.
+            </video>
+          </div>
+
+          <div class="eh-project-info">
+            <span class="eh-project-type">PROJECT 04 / SOCIAL REELS</span>
+            <h3>Reel-Ready Visuals</h3>
+
+            <p>
+              Vertical automotive content designed for mobile viewing,
+              with engaging pacing, clean framing and a strong opening.
+            </p>
+
+            <div class="eh-tags">
+              <span>Instagram Reels</span>
+              <span>Vertical Video</span>
+              <span>Editing</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKFLOW -->
+  <section class="eh-section">
+    <div class="eh-wrap">
+      <span class="eh-label">HOW I WORK</span>
+
+      <div class="eh-section-heading">
+        <h2>From Footage <span class="eh-red">To Final.</span></h2>
+      </div>
+
+      <p class="eh-section-intro">
+        A clear workflow helps keep each edit consistent, organised
+        and aligned with the creative direction of the project.
+      </p>
+
+      <div class="eh-process-grid">
+        <article class="eh-process-card">
+          <span class="number">01</span>
+          <h3>Understand</h3>
+          <p>
+            Discuss the concept, target audience, references and
+            desired visual style.
+          </p>
+        </article>
+
+        <article class="eh-process-card">
+          <span class="number">02</span>
+          <h3>Build</h3>
+          <p>
+            Select the best footage, arrange the sequence and establish
+            the timing and rhythm.
+          </p>
+        </article>
+
+        <article class="eh-process-card">
+          <span class="number">03</span>
+          <h3>Enhance</h3>
+          <p>
+            Add transitions, speed changes, color adjustments,
+            graphics and finishing touches.
+          </p>
+        </article>
+
+        <article class="eh-process-card">
+          <span class="number">04</span>
+          <h3>Deliver</h3>
+          <p>
+            Review the final edit and prepare the video in the
+            agreed format for delivery.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="eh-section">
+    <div class="eh-wrap">
+      <span class="eh-label">LET'S CREATE SOMETHING</span>
+
+      <div class="eh-section-heading">
+        <h2>Creative <span class="eh-red">Services.</span></h2>
+      </div>
+
+      <p class="eh-section-intro">
+        Need content for your brand, car, social media page or creative
+        project? Here are the types of work you can enquire about.
+      </p>
+
+      <div class="eh-service-grid">
+        <article class="eh-service">
+          <h3>Automotive Video Editing</h3>
+          <p>
+            Car reels, speed ramp edits, transitions, cinematic sequences
+            and social media-ready videos.
+          </p>
+        </article>
+
+        <article class="eh-service">
+          <h3>Motion Graphics</h3>
+          <p>
+            Animated titles, typography, visual effects and motion
+            design using Adobe After Effects.
+          </p>
+        </article>
+
+        <article class="eh-service">
+          <h3>Video Shooting</h3>
+          <p>
+            Camera-based content, car shoots, product footage and
+            creative visuals planned around your requirements.
+          </p>
+        </article>
+
+        <article class="eh-service">
+          <h3>Reels & Social Content</h3>
+          <p>
+            Short-form vertical edits with engaging pacing, strong
+            visual hooks and platform-friendly framing.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section class="eh-cta">
+    <span class="eh-label">HAVE A PROJECT IN MIND?</span>
+
+    <h2>
+      LET'S MAKE<br>
+      SOMETHING <span class="eh-red">BOLD.</span>
+    </h2>
+
+    <p>
+      Have a car shoot, reel, motion graphics idea or editing project?
+      Share your concept and let's discuss how to bring it to life.
+    </p>
+
+    <div class="eh-actions" style="justify-content:center;">
+      <a href="contact.html" class="eh-button">
+        START A PROJECT ↗
+      </a>
+
+      <a href="about.html" class="eh-button eh-button-outline">
+        ABOUT ME
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="eh-footer">
+    <p>
+      © 2026 <span>EditingHub.</span> All rights reserved.
+    </p>
+    <p>
+      Video Editing · Motion Graphics · Cinematic Shooting
+    </p>
+  </footer>
+
+</body>
+</html>

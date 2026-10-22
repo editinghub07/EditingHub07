@@ -1,0 +1,660 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Shooting Gear | EditingHub</title>
+  <meta name="description" content="Explore the camera, gimbals and mobile gear used for EditingHub's cinematic shoots.">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --red: #ff3434;
+      --black: #080808;
+      --card: #111111;
+      --border: #292929;
+      --muted: #a0a0a0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--black);
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .gear-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px 6%;
+      background: #050505;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .gear-logo {
+      color: white;
+      text-decoration: none;
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+    .gear-logo span {
+      color: var(--red);
+    }
+
+    .gear-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .gear-links a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .gear-links a:hover,
+    .gear-links a.active {
+      color: var(--red);
+    }
+
+    .gear-wrap {
+      width: min(1160px, 90%);
+      margin: auto;
+    }
+
+    .gear-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 100px 0 85px;
+      background:
+        radial-gradient(ellipse at 80% 40%,
+          rgba(255,52,52,.14), transparent 45%),
+        linear-gradient(135deg, #080808, #121212, #080808);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .gear-label {
+      color: var(--red);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 3px;
+    }
+
+    .gear-hero h1 {
+      margin: 25px 0;
+      font-size: clamp(48px, 9vw, 100px);
+      line-height: .95;
+      letter-spacing: -4px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .gear-hero h1 span {
+      display: block;
+      color: var(--red);
+    }
+
+    .gear-hero p {
+      max-width: 620px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.9;
+    }
+
+    .gear-section {
+      padding: 80px 0;
+    }
+
+    .gear-heading {
+      margin-bottom: 16px;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+    }
+
+    .gear-heading span {
+      color: var(--red);
+    }
+
+    .gear-intro {
+      max-width: 650px;
+      margin-bottom: 40px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    /* 3D gear cards */
+    .gear-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+      perspective: 1200px;
+    }
+
+    .gear-card {
+      position: relative;
+      min-width: 0;
+      overflow: hidden;
+      padding: 25px;
+      background:
+        radial-gradient(ellipse at 50% 35%,
+          rgba(255,255,255,.06), transparent 55%),
+        linear-gradient(145deg, #171717, #0b0b0b);
+      border: 1px solid #303030;
+      transform-style: preserve-3d;
+      transition:
+        transform .45s ease,
+        border-color .35s ease,
+        box-shadow .35s ease;
+    }
+
+    .gear-card:hover {
+      transform: rotateY(-4deg) rotateX(3deg) translateY(-7px);
+      border-color: var(--red);
+      box-shadow: 0 20px 50px rgba(0,0,0,.45);
+    }
+
+    .gear-card::before {
+      content: "";
+      position: absolute;
+      top: -100px;
+      right: -90px;
+      width: 230px;
+      height: 230px;
+      border-radius: 50%;
+      background: rgba(255,52,52,.08);
+      filter: blur(35px);
+      pointer-events: none;
+    }
+
+    .gear-number {
+      position: relative;
+      z-index: 2;
+      color: var(--red);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 3px;
+    }
+
+    .gear-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 300px;
+      margin: 10px 0;
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+
+    .gear-visual::before {
+      content: "";
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 25px rgba(255,255,255,.015),
+        0 0 0 50px rgba(255,255,255,.01);
+      transform: translateZ(-20px);
+    }
+
+    .gear-visual img {
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: 90%;
+      height: 90%;
+      object-fit: contain;
+      filter: drop-shadow(0 22px 15px rgba(0,0,0,.55));
+      transform: translateZ(45px);
+      transition: transform .5s ease;
+    }
+
+    .gear-card:hover .gear-visual img {
+      transform: translateZ(65px) scale(1.06);
+    }
+
+    /* Fallback visual if a product image hasn't been added yet */
+    .gear-placeholder {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      width: 175px;
+      height: 175px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      border: 1px solid #444;
+      background: linear-gradient(145deg, #292929, #0a0a0a);
+      box-shadow: 15px 20px 35px rgba(0,0,0,.5);
+      transform: translateZ(35px) rotateY(-8deg);
+    }
+
+    .gear-placeholder .gear-symbol {
+      color: var(--red);
+      font-size: 50px;
+      font-weight: 900;
+    }
+
+    .gear-placeholder small {
+      color: #bbb;
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    .gear-category {
+      color: var(--red);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .gear-card h3 {
+      position: relative;
+      margin: 12px 0;
+      font-size: clamp(20px, 3vw, 27px);
+      text-transform: uppercase;
+    }
+
+    .gear-description {
+      position: relative;
+      min-height: 48px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .gear-tags {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .gear-tags span {
+      padding: 8px 10px;
+      background: #1b1b1b;
+      border: 1px solid #333;
+      color: #ddd;
+      font-size: 10px;
+    }
+
+    .gear-footer-note {
+      margin-top: 40px;
+      padding: 22px;
+      border-left: 3px solid var(--red);
+      background: #111;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .gear-cta {
+      padding: 75px 20px;
+      background: #101010;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .gear-cta h2 {
+      font-size: clamp(32px, 6vw, 60px);
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .gear-cta h2 span {
+      color: var(--red);
+    }
+
+    .gear-cta p {
+      max-width: 570px;
+      margin: 15px auto 28px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .gear-button {
+      display: inline-block;
+      padding: 15px 23px;
+      background: var(--red);
+      border: 1px solid var(--red);
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: .3s;
+    }
+
+    .gear-button:hover {
+      background: #d91e1e;
+      transform: translateY(-3px);
+    }
+
+    .gear-bottom {
+      padding: 25px;
+      background: #050505;
+      color: #888;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .gear-bottom span {
+      color: var(--red);
+    }
+
+    @media (max-width: 650px) {
+      .gear-nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .gear-links {
+        gap: 12px;
+      }
+
+      .gear-hero {
+        padding: 70px 0;
+      }
+
+      .gear-hero h1 {
+        letter-spacing: -2px;
+      }
+
+      .gear-grid {
+        gap: 12px;
+      }
+
+      .gear-card {
+        padding: 12px;
+      }
+
+      .gear-visual {
+        height: 190px;
+      }
+
+      .gear-visual::before {
+        width: 125px;
+        height: 125px;
+      }
+
+      .gear-placeholder {
+        width: 115px;
+        height: 115px;
+      }
+
+      .gear-placeholder .gear-symbol {
+        font-size: 35px;
+      }
+
+      .gear-card h3 {
+        font-size: 16px;
+      }
+
+      .gear-description {
+        font-size: 11px;
+      }
+
+      .gear-tags {
+        gap: 5px;
+      }
+
+      .gear-tags span {
+        padding: 6px;
+        font-size: 9px;
+      }
+
+      .gear-section {
+        padding: 55px 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="gear-nav">
+    <a href="index.html" class="gear-logo">
+      EDITING<span>HUB.</span>
+    </a>
+
+    <div class="gear-links">
+      <a href="index.html">Home</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="motion-graphics.html">Motion Graphics</a>
+      <a href="shooting.html" class="active">Shooting</a>
+      <a href="about.html">About Me</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="gear-hero">
+    <div class="gear-wrap">
+      <span class="gear-label">EDITINGHUB / MY CREATIVE SETUP</span>
+
+      <h1>
+        THE TOOLS
+        <span>BEHIND THE FRAME.</span>
+      </h1>
+
+      <p>
+        Every shot begins with an idea. This is the gear I use for
+        capturing automotive visuals, creating smooth camera movement
+        and producing cinematic content for social media.
+      </p>
+    </div>
+  </header>
+
+  <!-- GEAR SHOWCASE -->
+  <main class="gear-wrap">
+    <section class="gear-section">
+      <span class="gear-label">01 / MY EQUIPMENT</span>
+
+      <h2 class="gear-heading">
+        My Shooting <span>Gear.</span>
+      </h2>
+
+      <p class="gear-intro">
+        A closer look at my creative setup. Each piece of equipment
+        has a role in my shooting workflow, from camera capture to
+        stabilized movement and mobile filmmaking.
+      </p>
+
+      <div class="gear-grid">
+
+        <!-- GEAR 01: SONY ZV-E10 -->
+        <article class="gear-card">
+          <span class="gear-number">GEAR / 01</span>
+
+          <div class="gear-visual">
+            <img src="images/sony-zve10.png"
+                 alt="Sony ZV-E10 camera"
+                 loading="lazy"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+            <div class="gear-placeholder" style="display:none">
+              <span class="gear-symbol">CAM</span>
+              <small>CAMERA SYSTEM</small>
+            </div>
+          </div>
+
+          <span class="gear-category">Camera / Capture</span>
+          <h3>Sony <span class="eh-red">ZV-E10</span></h3>
+
+          <p class="gear-description">
+            My camera for capturing car details, cinematic footage,
+            product visuals and creative shooting projects.
+          </p>
+
+          <div class="gear-tags">
+            <span>APS-C Camera</span>
+            <span>4K Video</span>
+            <span>Interchangeable Lens</span>
+          </div>
+        </article>
+
+        <!-- GEAR 02: DJI RS 3 MINI -->
+        <article class="gear-card">
+          <span class="gear-number">GEAR / 02</span>
+
+          <div class="gear-visual">
+            <img src="images/dji-rs-3-mini.png"
+                 alt="DJI RS 3 Mini camera gimbal"
+                 loading="lazy"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+            <div class="gear-placeholder" style="display:none">
+              <span class="gear-symbol">RS3</span>
+              <small>CAMERA STABILIZER</small>
+            </div>
+          </div>
+
+          <span class="gear-category">Stabilization / Camera</span>
+          <h3>DJI <span class="eh-red">RS 3 Mini</span></h3>
+
+          <p class="gear-description">
+            A compact camera gimbal for smoother tracking shots,
+            controlled movement and cinematic car sequences.
+          </p>
+
+          <div class="gear-tags">
+            <span>3-Axis Gimbal</span>
+            <span>Tracking Shots</span>
+            <span>Camera Movement</span>
+          </div>
+        </article>
+
+        <!-- GEAR 03: DJI OSMO MOBILE 6 -->
+        <article class="gear-card">
+          <span class="gear-number">GEAR / 03</span>
+
+          <div class="gear-visual">
+            <img src="images/dji-osmo-mobile-6.png"
+                 alt="DJI Osmo Mobile 6 smartphone gimbal"
+                 loading="lazy"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+            <div class="gear-placeholder" style="display:none">
+              <span class="gear-symbol">OM6</span>
+              <small>MOBILE STABILIZER</small>
+            </div>
+          </div>
+
+          <span class="gear-category">Mobile / Stabilization</span>
+          <h3>DJI <span class="eh-red">Osmo Mobile 6</span></h3>
+
+          <p class="gear-description">
+            A smartphone stabilizer for smooth handheld-style
+            movement, quick reels and lightweight shooting setups.
+          </p>
+
+          <div class="gear-tags">
+            <span>Smartphone Gimbal</span>
+            <span>ActiveTrack</span>
+            <span>Mobile Video</span>
+          </div>
+        </article>
+
+        <!-- GEAR 04: IPHONE 15 PRO -->
+        <article class="gear-card">
+          <span class="gear-number">GEAR / 04</span>
+
+          <div class="gear-visual">
+            <img src="images/iphone-15-pro.png"
+                 alt="Apple iPhone 15 Pro"
+                 loading="lazy"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+            <div class="gear-placeholder" style="display:none">
+              <span class="gear-symbol">15P</span>
+              <small>MOBILE CAMERA</small>
+            </div>
+          </div>
+
+          <span class="gear-category">Mobile / Content Creation</span>
+          <h3>iPhone <span class="eh-red">15 Pro</span></h3>
+
+          <p class="gear-description">
+            A portable tool for mobile footage, behind-the-scenes
+            clips, quick content creation and everyday shooting.
+          </p>
+
+          <div class="gear-tags">
+            <span>4K Video</span>
+            <span>ProRes Support</span>
+            <span>Mobile Workflow</span>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="gear-footer-note">
+        <strong style="color:#fff">MY APPROACH</strong><br>
+        Great visuals come from combining the right tools with good
+        composition, lighting, movement and editing. I focus on making
+        every frame feel intentional.
+      </div>
+    </section>
+  </main>
+
+  <!-- CONTACT -->
+  <section class="gear-cta">
+    <span class="gear-label">HAVE A SHOOT IN MIND?</span>
+
+    <h2>
+      LET'S CREATE<br>
+      <span>YOUR NEXT VISUAL.</span>
+    </h2>
+
+    <p>
+      Planning a car shoot, product video or social media reel?
+      Get in touch to discuss your creative idea.
+    </p>
+
+    <a href="contact.html" class="gear-button">
+      DISCUSS A PROJECT ↗
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="gear-bottom">
+    © 2026 <span>EditingHub.</span> All rights reserved.
+  </footer>
+
+</body>
+</html>

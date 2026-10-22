@@ -1,0 +1,916 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Motion Graphics | EditingHub</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #080808;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .mg-container {
+      width: min(1180px, 90%);
+      margin: auto;
+    }
+
+    /* TOP NAVIGATION BAR */
+
+    .mg-navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+      background: rgba(8, 8, 8, 0.94);
+      border-bottom: 1px solid #262626;
+      backdrop-filter: blur(12px);
+    }
+
+    .mg-nav-inner {
+      width: min(1250px, 92%);
+      min-height: 78px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .mg-logo {
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    .mg-logo span {
+      color: #ff3030;
+    }
+
+    .mg-nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 26px;
+      flex-wrap: wrap;
+    }
+
+    .mg-nav-links a {
+      color: #ccc;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.25s ease;
+    }
+
+    .mg-nav-links a:hover,
+    .mg-nav-links a.active {
+      color: #ff3030;
+    }
+
+    .mg-nav-links .mg-nav-contact {
+      padding: 12px 17px;
+      border: 1px solid #ff3030;
+      color: #fff;
+    }
+
+    .mg-nav-links .mg-nav-contact:hover {
+      background: #ff3030;
+      color: #fff;
+    }
+
+    /* HERO */
+
+    .mg-hero {
+      position: relative;
+      isolation: isolate;
+      min-height: 86vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: #080808;
+    }
+
+    .mg-video-background {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      overflow: hidden;
+      background: #080808;
+    }
+
+    .mg-sequence-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+      pointer-events: none;
+    }
+
+    .mg-sequence-video.active {
+      opacity: 0.8;
+    }
+
+    .mg-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.83),
+          rgba(0, 0, 0, 0.35)
+        ),
+        linear-gradient(
+          0deg,
+          #080808 0%,
+          transparent 35%
+        );
+    }
+
+    .mg-hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 100px 0;
+      max-width: 900px;
+    }
+
+    .mg-eyebrow {
+      display: inline-block;
+      color: #ff3030;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .mg-hero h1 {
+      font-size: clamp(48px, 9vw, 110px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -4px;
+      text-transform: uppercase;
+    }
+
+    .mg-red {
+      color: #ff3030;
+    }
+
+    .mg-hero-description {
+      max-width: 630px;
+      margin: 28px 0;
+      color: #ccc;
+      font-size: 16px;
+      line-height: 1.9;
+    }
+
+    .mg-button {
+      display: inline-block;
+      margin: 8px 10px 0 0;
+      padding: 15px 24px;
+      background: #ff3030;
+      border: 1px solid #ff3030;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: 0.25s;
+    }
+
+    .mg-button:hover {
+      background: transparent;
+      color: #ff3030;
+    }
+
+    .mg-button-outline {
+      background: transparent;
+      border-color: #777;
+    }
+
+    /* SECTIONS */
+
+    .mg-section {
+      padding: 90px 0;
+    }
+
+    .mg-section-dark {
+      background: #101010;
+    }
+
+    .mg-section-heading {
+      max-width: 760px;
+      margin-bottom: 42px;
+    }
+
+    .mg-section-heading h2 {
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 1.1;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+    }
+
+    .mg-section-heading p {
+      margin-top: 20px;
+      color: #aaa;
+      font-size: 15px;
+      line-height: 1.9;
+    }
+
+    .mg-intro-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .mg-intro-copy p {
+      margin-bottom: 18px;
+      color: #bbb;
+      font-size: 15px;
+      line-height: 1.9;
+    }
+
+    .mg-highlight {
+      padding-left: 20px;
+      border-left: 3px solid #ff3030;
+      color: #fff !important;
+      font-weight: 700;
+    }
+
+    .mg-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .mg-stat {
+      padding: 28px 22px;
+      min-height: 135px;
+      border: 1px solid #2b2b2b;
+      background: #111;
+    }
+
+    .mg-stat strong {
+      display: block;
+      color: #ff3030;
+      font-size: 34px;
+      margin-bottom: 12px;
+    }
+
+    .mg-stat span {
+      color: #aaa;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* SERVICE CARDS */
+
+    .mg-service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .mg-service-card {
+      padding: 30px;
+      min-height: 230px;
+      border: 1px solid #292929;
+      background: #111;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .mg-service-card:hover {
+      transform: translateY(-5px);
+      border-color: #ff3030;
+    }
+
+    .mg-service-number {
+      color: #ff3030;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .mg-service-card h3 {
+      margin: 25px 0 12px;
+      font-size: 21px;
+      text-transform: uppercase;
+    }
+
+    .mg-service-card p {
+      color: #aaa;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    /* WORKFLOW */
+
+    .mg-workflow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .mg-step {
+      padding-top: 22px;
+      border-top: 2px solid #333;
+    }
+
+    .mg-step-number {
+      color: #ff3030;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .mg-step h3 {
+      margin: 16px 0 10px;
+      font-size: 19px;
+      text-transform: uppercase;
+    }
+
+    .mg-step p {
+      color: #aaa;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    /* SOFTWARE */
+
+    .mg-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .mg-tool {
+      padding: 15px 20px;
+      border: 1px solid #333;
+      background: #111;
+      color: #ddd;
+      font-size: 13px;
+    }
+
+    /* CONTACT SECTION */
+
+    .mg-cta {
+      padding: 90px 20px;
+      text-align: center;
+      border-top: 1px solid #222;
+      background:
+        radial-gradient(
+          ellipse at center,
+          rgba(255, 48, 48, 0.16),
+          transparent 70%
+        ),
+        #090909;
+    }
+
+    .mg-cta h2 {
+      font-size: clamp(34px, 6vw, 65px);
+      line-height: 1.08;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+    }
+
+    .mg-cta p {
+      max-width: 600px;
+      margin: 22px auto;
+      color: #aaa;
+      line-height: 1.8;
+    }
+
+    /* FOOTER */
+
+    .mg-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 26px 5%;
+      background: #050505;
+      border-top: 1px solid #222;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .mg-footer strong {
+      color: #ff3030;
+      letter-spacing: 2px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 900px) {
+      .mg-nav-inner {
+        padding: 17px 0;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .mg-nav-links {
+        justify-content: flex-start;
+        gap: 17px;
+      }
+
+      .mg-intro-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mg-service-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .mg-workflow {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .mg-nav-links {
+        gap: 13px;
+      }
+
+      .mg-nav-links a {
+        font-size: 10px;
+      }
+
+      .mg-nav-links .mg-nav-contact {
+        padding: 9px 11px;
+      }
+
+      .mg-hero h1 {
+        letter-spacing: -2px;
+      }
+
+      .mg-service-grid,
+      .mg-stat-grid,
+      .mg-workflow {
+        grid-template-columns: 1fr;
+      }
+
+      .mg-section {
+        padding: 65px 0;
+      }
+
+      .mg-footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP NAVIGATION -->
+
+  <header class="mg-navbar">
+    <nav class="mg-nav-inner" aria-label="Main navigation">
+
+      <a href="index.html" class="mg-logo">
+        EDITING<span>HUB.</span>
+      </a>
+
+      <div class="mg-nav-links">
+        <a href="index.html">Home</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="motion-graphics.html" class="active">Motion Graphics</a>
+        <a href="shooting.html">Shooting</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="mg-nav-contact">Contact ↗</a>
+        <a href="https://www.instagram.com/editsthetic_05/"
+   class="instagram-link"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="Visit Instagram">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+    <circle cx="12" cy="12" r="4"></circle>
+    <circle cx="17.5" cy="6.5" r="1"></circle>
+  </svg>
+</a>
+
+      </div>
+
+    </nav>
+  </header>
+
+  <!-- HERO WITH TWO SEQUENTIAL BACKGROUND VIDEOS -->
+
+  <section class="mg-hero">
+
+    <div class="mg-video-background" aria-hidden="true">
+
+      <video
+        id="mg-video-one"
+        class="mg-sequence-video active"
+        muted
+        playsinline
+        preload="auto"
+      >
+        <source src="videos/motion-bg.mp4" type="video/mp4">
+      </video>
+
+      <video
+        id="mg-video-two"
+        class="mg-sequence-video"
+        muted
+        playsinline
+        preload="auto"
+      >
+        <source src="videos/motion-bg-2.mp4" type="video/mp4">
+      </video>
+
+    </div>
+
+    <div class="mg-container mg-hero-content">
+
+      <span class="mg-eyebrow">
+        EditingHub / Motion Graphics
+      </span>
+
+      <h1>
+        MOTION<br>
+        <span class="mg-red">THAT SPEAKS.</span>
+      </h1>
+
+      <p class="mg-hero-description">
+        Turning ideas into powerful visuals through motion design,
+        cinematic animation, kinetic typography and creative visual effects.
+        Every frame has a purpose. Every movement tells a story.
+      </p>
+
+      <a href="#services" class="mg-button">Explore Services</a>
+      <a href="contact.html" class="mg-button mg-button-outline">Work With Me</a>
+
+    </div>
+  </section>
+
+  <!-- ABOUT MOTION GRAPHICS -->
+
+  <section class="mg-section">
+    <div class="mg-container mg-intro-grid">
+
+      <div class="mg-intro-copy">
+        <div class="mg-section-heading">
+          <span class="mg-eyebrow">What I Create</span>
+          <h2>DESIGN THAT <span class="mg-red">MOVES.</span></h2>
+        </div>
+
+        <p>
+          Motion graphics combine graphic design, animation, timing and
+          sound to create engaging visual experiences. They can make a brand
+          memorable, explain an idea, introduce an event or give a video a
+          professional visual identity.
+        </p>
+
+        <p>
+          At EditingHub, the focus is on clean animation, strong typography,
+          impactful transitions, visual rhythm and details that support
+          the message.
+        </p>
+
+        <p class="mg-highlight">
+          From a simple animated logo to a complete promotional visual,
+          the goal is to make every second count.
+        </p>
+      </div>
+
+      <div class="mg-stat-grid">
+        <div class="mg-stat">
+          <strong>01</strong>
+          <span>Logo Animation</span>
+        </div>
+
+        <div class="mg-stat">
+          <strong>02</strong>
+          <span>Kinetic Typography</span>
+        </div>
+
+        <div class="mg-stat">
+          <strong>03</strong>
+          <span>Visual Effects</span>
+        </div>
+
+        <div class="mg-stat">
+          <strong>04</strong>
+          <span>Creative Editing</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+
+  <section class="mg-section mg-section-dark" id="services">
+    <div class="mg-container">
+
+      <div class="mg-section-heading">
+        <span class="mg-eyebrow">My Services</span>
+        <h2>WHAT I <span class="mg-red">CAN CREATE.</span></h2>
+        <p>
+          Motion design solutions for creators, brands, businesses and events.
+          Each project can be adapted to your visual style and platform.
+        </p>
+      </div>
+
+      <div class="mg-service-grid">
+
+        <article class="mg-service-card">
+          <span class="mg-service-number">01 / BRANDING</span>
+          <h3>Logo Animation</h3>
+          <p>
+            Bring your logo to life with clean reveals, cinematic movement,
+            light effects and memorable animated brand identities.
+          </p>
+        </article>
+
+        <article class="mg-service-card">
+          <span class="mg-service-number">02 / TYPOGRAPHY</span>
+          <h3>Kinetic Typography</h3>
+          <p>
+            Dynamic text animation, beat-synced typography, title sequences
+            and creative text transitions designed to capture attention.
+          </p>
+        </article>
+
+        <article class="mg-service-card">
+          <span class="mg-service-number">03 / VFX</span>
+          <h3>Visual Effects</h3>
+          <p>
+            Enhance footage with compositing, tracking, glow, atmosphere,
+            impact effects and other visual details.
+          </p>
+        </article>
+
+        <article class="mg-service-card">
+          <span class="mg-service-number">04 / SOCIAL</span>
+          <h3>Social Media Motion</h3>
+          <p>
+            Short-form motion graphics for Instagram Reels, YouTube Shorts,
+            promotional posts and creator content.
+          </p>
+        </article>
+
+        <article class="mg-service-card">
+          <span class="mg-service-number">05 / INTRO</span>
+          <h3>Intro & Outro</h3>
+          <p>
+            Animated introductions, end screens, channel branding and
+            signature sequences for videos and online content.
+          </p>
+        </article>
+
+        <article class="mg-service-card">
+          <span class="mg-service-number">06 / PROMOTION</span>
+          <h3>Promotional Graphics</h3>
+          <p>
+            Event titles, product promos, announcements and animated
+            graphics that communicate information with impact.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKFLOW -->
+
+  <section class="mg-section">
+    <div class="mg-container">
+
+      <div class="mg-section-heading">
+        <span class="mg-eyebrow">My Process</span>
+        <h2>FROM IDEA <span class="mg-red">TO MOTION.</span></h2>
+        <p>
+          A clear workflow keeps the creative direction focused and the
+          final result consistent with the project brief.
+        </p>
+      </div>
+
+      <div class="mg-workflow">
+
+        <div class="mg-step">
+          <span class="mg-step-number">STEP 01</span>
+          <h3>Discover</h3>
+          <p>
+            Understand the brief, audience, purpose, reference style and
+            desired outcome.
+          </p>
+        </div>
+
+        <div class="mg-step">
+          <span class="mg-step-number">STEP 02</span>
+          <h3>Design</h3>
+          <p>
+            Develop the visual direction, typography, colours and
+            animation concept.
+          </p>
+        </div>
+
+        <div class="mg-step">
+          <span class="mg-step-number">STEP 03</span>
+          <h3>Animate</h3>
+          <p>
+            Build the motion, refine timing, add effects and polish
+            the overall composition.
+          </p>
+        </div>
+
+        <div class="mg-step">
+          <span class="mg-step-number">STEP 04</span>
+          <h3>Deliver</h3>
+          <p>
+            Review the final result and export it in the agreed format
+            and dimensions.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SOFTWARE -->
+
+  <section class="mg-section mg-section-dark">
+    <div class="mg-container">
+
+      <div class="mg-section-heading">
+        <span class="mg-eyebrow">Creative Toolkit</span>
+        <h2>TOOLS BEHIND <span class="mg-red">THE MOTION.</span></h2>
+        <p>
+          Software and techniques used to design, animate, composite
+          and finish creative visuals.
+        </p>
+      </div>
+
+      <div class="mg-tools">
+        <span class="mg-tool">Adobe After Effects</span>
+        <span class="mg-tool">Adobe Photoshop</span>
+        <span class="mg-tool">Motion Design</span>
+        <span class="mg-tool">Kinetic Typography</span>
+        <span class="mg-tool">Compositing</span>
+        <span class="mg-tool">Visual Effects</span>
+        <span class="mg-tool">Colour & Lighting</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+
+  <section class="mg-cta">
+    <div class="mg-container">
+
+      <span class="mg-eyebrow">Have a Project in Mind?</span>
+
+      <h2>
+        LET'S CREATE<br>
+        <span class="mg-red">SOMETHING IMPACTFUL.</span>
+      </h2>
+
+      <p>
+        Need a logo animation, promotional video, kinetic typography
+        or creative motion graphics? Let's discuss your next project.
+      </p>
+
+      <a href="contact.html" class="mg-button">Start a Project</a>
+      <a href="portfolio.html" class="mg-button mg-button-outline">View Portfolio</a>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer class="mg-footer">
+    <span><strong>EDITINGHUB</strong> / VIDEO EDITING & VISUALS</span>
+    <span>Creative visuals. Meaningful motion.</span>
+    <span>© <span id="mg-year"></span> EditingHub</span>
+  </footer>
+
+  <!-- BACKGROUND VIDEO LOOP -->
+
+  <script>
+    const videoOne = document.getElementById("mg-video-one");
+    const videoTwo = document.getElementById("mg-video-two");
+
+    const videos = [videoOne, videoTwo];
+    let currentVideo = 0;
+    let switching = false;
+    const fadeDuration = 1200;
+
+    function playVideo(index) {
+      const video = videos[index];
+
+      videos.forEach((item, i) => {
+        if (i !== index) {
+          item.classList.remove("active");
+          item.pause();
+        }
+      });
+
+      currentVideo = index;
+      video.muted = true;
+      video.classList.add("active");
+
+      if (video.readyState >= 2) {
+        video.currentTime = 0;
+
+        video.play().catch(error => {
+          console.warn("Background video could not play:", error);
+        });
+      } else {
+        video.addEventListener("canplay", function onCanPlay() {
+          video.removeEventListener("canplay", onCanPlay);
+
+          video.currentTime = 0;
+          video.play().catch(error => {
+            console.warn("Background video could not play:", error);
+          });
+        });
+
+        video.load();
+      }
+    }
+
+    function switchVideo() {
+      if (switching) return;
+
+      switching = true;
+
+      const oldVideo = videos[currentVideo];
+      const nextIndex = (currentVideo + 1) % videos.length;
+
+      oldVideo.classList.remove("active");
+
+      setTimeout(() => {
+        oldVideo.pause();
+
+        try {
+          oldVideo.currentTime = 0;
+        } catch (error) {
+          console.warn("Could not reset video:", error);
+        }
+
+        playVideo(nextIndex);
+        switching = false;
+      }, fadeDuration);
+    }
+
+    videos.forEach(video => {
+      video.addEventListener("ended", () => {
+        if (video === videos[currentVideo]) {
+          switchVideo();
+        }
+      });
+
+      video.addEventListener("error", () => {
+        if (video === videos[currentVideo] && !switching) {
+          console.warn("Could not load background video:", video.currentSrc);
+          switchVideo();
+        }
+      });
+    });
+
+    // Start with the first video.
+    playVideo(0);
+
+    // Automatically update the copyright year.
+    document.getElementById("mg-year").textContent =
+      new Date().getFullYear();
+  </script>
+
+</body>
+</html>
